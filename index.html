@@ -1,56 +1,76 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>İyi Ki Doğdun!</title>
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body, html { width: 100%; height: 100%; overflow: hidden; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-#bg-video {
-position: fixed; right: 0; bottom: 0;
-min-width: 100%; min-height: 100%;
-width: auto; height: auto; z-index: -100;
-background-size: cover; object-fit: cover;
-}
-.content {
-position: absolute; bottom: 10%; left: 5%; right: 5%;
-background: rgba(0, 0, 0, 0.6);
-color: white; padding: 30px; border-radius: 15px;
-text-align: center; backdrop-filter: blur(5px);
-box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-}
-h1 { font-size: 2.5rem; margin-bottom: 15px; color: #ff4757; }
-p { font-size: 1.2rem; line-height: 1.6; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>İyi Ki Doğdun!</title>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; min-height: 100%; font-family: sans-serif; background: black; }
+        #bg-video {
+            position: fixed; top: 0; left: 0; min-width: 100%; min-height: 100%;
+            object-fit: cover; z-index: -1;
+        }
+        
+        /* Ses Butonu Tasarımı */
+        #audio-btn {
+            position: fixed; top: 20px; right: 20px; z-index: 100;
+            background: #ff4757; color: white; border: none;
+            padding: 10px 15px; border-radius: 20px; font-weight: bold;
+            cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            font-size: 14px; animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .content {
+            position: relative; width: 90%; margin: 80px auto 20px auto;
+            background: rgba(0, 0, 0, 0.7); color: white;
+            padding: 20px; border-radius: 15px; text-align: center;
+            backdrop-filter: blur(5px);
+        }
+        h1 { color: #ff4757; font-size: 24px; margin-bottom: 15px; }
+        p { font-size: 16px; line-height: 1.6; }
+    </style>
 </head>
 <body>
 
-<video autoplay muted loop playsinline id="bg-video">
-<source src="arkaplan.mp4" type="video/mp4">
-</video>
+    <!-- Ses Butonu -->
+    <button id="audio-btn" onclick="toggleAudio()">🔊 Sesi Aç</button>
 
-<div class="content">
-<h1>İyi Ki Doğdun, İyi Ki Varsın! 🎉</h1>
-<p>
-Doğum günün geldiğinde sadece bir tarihi kutlamıyorum. İçimden geçen şey bir yılı daha geride bırakmanın çok daha ötesinde oluyor. Sen yaş aldıkça yalnızca büyümüyorsun; hayatımdaki, kalbimdeki yerin de büyüyor. Ne yazarsam yazayım, ne kadar cümle kurarsam kurayım eksik kalacakmış gibi hissediyorum :). <br><br>
+    <!-- Arka Plan Videosu -->
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="arkaplan.mp4" type="video/mp4">
+    </video>
 
-Bazı insanlar anılarıyla değil de bana hissettirdiği şeyler ile yer ediyor zihnimde ve bu benim için çok değerli, sen benim için hep böyle bir arkadaş oldun. Bazı insanlar olur ya, o kadar içselleştirmişsindir ki onu, varlığı senin için normalleşmiştir çünkü hep ordaymış gibi gelir. Bir an için durup düşündüğümde anlıyorum ki varlığın bana alışkanlıktan ziyade bir şans.<br><br>
+    <div class="content">
+        <h1>İyi Ki Doğdun, İyi Ki Varsın! 🎉</h1>
+        <p>
+            Doğum günün geldiğinde sadece bir tarihi kutlamıyorum. İçimden geçen şey bir yılı daha geride bırakmanın çok daha ötesinde oluyor. Sen yaş aldıkça yalnızca büyümüyorsun; hayatımdaki, kalbimdeki yerin de büyüyor. Ne yazarsam yazayım, ne kadar cümle kurarsam kurayım eksik kalacakmış gibi hissediyorum :). <br><br>
+            Bazı insanlar anılarıyla değil de bana hissettirdiği şeyler ile yer ediyor zihnimde ve bu benim için çok değerli, sen benim için hep böyle bir arkadaş oldun. <br><br>
+            Belki her zaman aynı frekansta olamayacağız, belki hayat bizi farklı yönlene çekecek... Bilmeni isterim ki benim gözümde hiçbir zaman "uzaklaşan insanlar" tarafında olmayacaksın.<br><br>
+            Varlığına iyi ki. Nice senelere. 💕
+        </p>
+    </div>
 
-Belki her zaman aynı frekansta olamayacağız, belki hayat bizi farklı yönlere çekecek... Bilmeni isterim ki benim gözümde hiçbir zaman "uzaklaşan insanlar" tarafında olmayacaksın. Lise bana mesafelerle eksilmeyecek, hayatımın içinde çoktan yerini bulmuş bir arkadaşlık kazandırdı işte; en çok da bu yüzden minnettarım.<br><br>
-
-Bugün senin doğum günün ve sana uzun uzun güzel dilekler yazmak yerine söylemek istediğim tek bir şey var: Hayat sana ne getirirse getirsin, ne kadar büyürsen büyü benim sevgili arkadaşım; seni eski halinle de, bugünkü halinle de tanıyan, hakkında daima iyi şeyler dileyen ve belki de en önemlisi yorulduğunda yanında sessizce oturabileceğin biri olduğunu unutma.<br><br>
-
-Varlığın hiçbir zaman gösterişli olmadı ama bana hep güven verdin. Bu yüzden sana burada büyük sözler vermeyeceğim, "sonsuza kadar" demeyeceğim. Hayatın ne getireceğini bilemiyorum çünkü ama şunun sözünü verebilirim ki seni hayatımda tutmak için elimden geleni yapacağım.<br><br>
-
-Son olarak Eflin'im,<br>
-Umarım bir gün kendine benim baktığım yerden bakarsın çünkü ancak o zaman ne kadar kıymetli biri olduğunu görürsün.<br><br>
-
-Varlığına iyi ki.<br>
-Nice senelere. 💕
-
-</p>
-</div>
+    <!-- Sesi açıp kapatmayı sağlayan sihirli kod -->
+    <script>
+        function toggleAudio() {
+            var video = document.getElementById("bg-video");
+            var btn = document.getElementById("audio-btn");
+            if (video.muted) {
+                video.muted = false;
+                btn.innerHTML = "🔇 Sesi Kapat";
+                btn.style.background = "#555";
+            } else {
+                video.muted = true;
+                btn.innerHTML = "🔊 Sesi Aç";
+                btn.style.background = "#ff4757";
+            }
+        }
+    </script>
 
 </body>
 </html>
