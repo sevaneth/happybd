@@ -1,91 +1,633 @@
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="tr">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>İyi Ki Doğdun!</title>
-    <style>
-        body, html { margin: 0; padding: 0; width: 100%; min-height: 100vh; font-family: sans-serif; background: black; overflow-y: auto; }
-        
-        /* YouTube Arka Plan Alanı */
-        .video-background {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; pointer-events: none; overflow: hidden;
-        }
-        .video-background iframe {
-            position: absolute; top: 50%; left: 50%;
-            width: 100vw; height: 56.25vw; /* 16:9 Oranı */
-            min-height: 100vh; min-width: 177.77vh; /* Ekranı kaplaması için */
-            transform: translate(-50%, -50%);
-        }
-        
-        #audio-btn {
-            position: fixed; top: 20px; right: 20px; z-index: 100;
-            background: #ff4757; color: white; border: none;
-            padding: 12px 20px; border-radius: 25px; font-weight: bold;
-            cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.5); font-size: 16px;
-        }
-        .content {
-            position: relative; width: 85%; margin: 100px auto 40px auto;
-            background: rgba(0, 0, 0, 0.75); color: white;
-            padding: 25px; border-radius: 15px; text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        }
-        h1 { color: #ff4757; font-size: 24px; margin-bottom: 15px; }
-        p { font-size: 16px; line-height: 1.6; text-align: left; }
-    </style>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>İyi ki Doğdun 💕</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+
+background:black;
+
+overflow:hidden;
+
+font-family:
+Georgia,
+serif;
+
+}
+
+#video{
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+filter:
+brightness(.42);
+
+z-index:-5;
+
+}
+
+.overlay{
+
+position:fixed;
+
+inset:0;
+
+background:
+
+linear-gradient(
+rgba(0,0,0,.15),
+rgba(0,0,0,.55)
+);
+
+backdrop-filter:
+blur(1px);
+
+z-index:-4;
+
+}
+
+.open{
+
+position:absolute;
+
+top:50%;
+
+left:50%;
+
+transform:
+translate(-50%,-50%);
+
+padding:
+
+18px 36px;
+
+border:none;
+
+border-radius:999px;
+
+background:
+
+rgba(255,255,255,.12);
+
+backdrop-filter:
+blur(20px);
+
+color:white;
+
+font-size:18px;
+
+letter-spacing:1px;
+
+}
+
+.card{
+
+display:none;
+
+position:absolute;
+
+left:50%;
+
+top:50%;
+
+transform:
+translate(-50%,-50%);
+
+width:min(90vw,850px);
+
+height:82vh;
+
+overflow:auto;
+
+padding:38px;
+
+background:
+
+rgba(255,255,255,.08);
+
+backdrop-filter:
+blur(18px);
+
+border-radius:30px;
+
+color:white;
+
+line-height:2;
+
+box-shadow:
+
+0 0 80px
+rgba(255,255,255,.05);
+
+}
+
+.card::-webkit-scrollbar{
+
+display:none;
+
+}
+
+.title{
+
+text-align:center;
+
+font-size:40px;
+
+margin-bottom:30px;
+
+}
+
+.end{
+
+margin-top:40px;
+
+text-align:center;
+
+font-size:24px;
+
+}
+
+.fade{
+
+animation:
+fade 2s;
+
+}
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+
+transform:
+translate(
+-50%,
+-45%
+);
+
+}
+
+to{
+
+opacity:1;
+
+transform:
+translate(
+-50%,
+-50%
+);
+
+}
+
+}
+
+</style>
+
 </head>
+
 <body>
 
-    <button id="audio-btn" onclick="toggleAudio()">🔊 Sesi Aç</button>
+<video
+id="video"
+loop
+playsinline>
 
-    <!-- YouTube Arka Plan Videosu (Gizli Oyuncu) -->
-    <div class="video-background">
-        <iframe id="bg-player" 
-            src="https://www.youtube.com/embed/XtcLuhEr164?autoplay=1&mute=1&loop=1&playlist=XtcLuhEr164&controls=0&showinfo=0&rel=0&enablejsapi=1&playsinline=1" 
-            frameborder="0" allow="autoplay; encrypted-media">
-        </iframe>
-    </div>
+<source
+src="video.mp4"
+type="video/mp4">
 
-    <div class="content">
-        <h1>İyi Ki Doğdun, İyi Ki Varsın! 🎉</h1>
-        <p>
-            Doğum günün geldiğinde sadece bir tarihi kutlamıyorum. İçimden geçen şey bir yılı daha geride bırakmanın çok daha ötesinde oluyor. Sen yaş aldıkça yalnızca büyümüyorsun; hayatımdaki, kalbimdeki yerin de büyüyor. Ne yazarsam yazayım, ne kadar cümle kurarsam kurayım eksik kalacakmış gibi hissediyorum :). <br><br>
-            Bazı insanlar anılarıyla değil de bana hissettirdiği şeyler ile yer ediyor zihnimde ve bu benim için çok değerli, sen benim için hep böyle bir arkadaş oldun. <br><br>
-            Belki her zaman aynı frekansta olamayacağız, belki hayat bizi farklı yönlere çekecek... Ama ne olursa olsun, bir gün geriye dönüp baktığımda "İyi ki hayatımdan geçmiş," diyeceğim nadir insanlardansın. Bilmeni isterim ki benim gözümde hiçbir zaman "uzaklaşan insanlar" tarafında olmayacaksın.<br><br>
-            Varlığına iyi ki. Nice senelere. 💕
-        </p>
-    </div>
+</video>
 
-    <!-- YouTube Ses Kontrol Sihirbazı -->
-    <script>
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+<div class="overlay"></div>
 
-        var player;
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('bg-player');
-        }
+<button
+class="open"
+onclick="playVideo()">
 
-        var isMuted = true;
-        function toggleAudio() {
-            var btn = document.getElementById("audio-btn");
-            if (player && typeof player.unMute === 'function') {
-                if (isMuted) {
-                    player.unMute();
-                    isMuted = false;
-                    btn.innerHTML = "🔇 Sesi Kapat";
-                    btn.style.background = "#555";
-                } else {
-                    player.mute();
-                    isMuted = true;
-                    btn.innerHTML = "🔊 Sesi Aç";
-                    btn.style.background = "#ff4757";
-                }
-            }
-        }
-    </script>
+▶ Aç
+
+</button>
+
+<div
+class="card"
+id="letter">
+
+<div class="title">
+
+İyi ki Doğdun Eflin 💕
+
+</div>
+
+Doğum günün geldiğinde sadece bir tarihi kutlamıyorum. İçimden geçen şey bir yılı daha geride bırakmanın çok daha ötesinde oluyor. Sen yaş aldıkça yalnızca büyümüyorsun; hayatımdaki, kalbimdeki yerin de büyüyor. Ne yazarsam yazayım, ne kadar cümle kurarsam kurayım eksik kalacakmış gibi hissediyorum :). <br><br>
+
+Bazı insanlar anılarıyla değil de bana hissettirdiği şeyler ile yer ediyor zihnimde ve bu benim için çok değerli, sen benim için hep böyle bir arkadaş oldun. Bazı insanlar olur ya, o kadar içselleştirmişsindir ki onu, varlığı senin için normalleşmiştir çünkü hep ordaymış gibi gelir. Bir an için durup düşündüğümde anlıyorum ki varlığın bana alışkanlıktan ziyade bir şans.<br><br>
+
+Belki her zaman aynı frekansta olamayacağız, belki hayat bizi farklı yönlere çekecek... Bilmeni isterim ki benim gözümde hiçbir zaman "uzaklaşan insanlar" tarafında olmayacaksın. Lise bana mesafelerle eksilmeyecek, hayatımın içinde çoktan yerini bulmuş bir arkadaşlık kazandırdı işte; en çok da bu yüzden minnettarım.<br><br>
+
+Bugün senin doğum günün ve sana uzun uzun güzel dilekler yazmak yerine söylemek istediğim tek bir şey var: Hayat sana ne getirirse getirsin, ne kadar büyürsen büyü benim sevgili arkadaşım; seni eski halinle de, bugünkü halinle de tanıyan, hakkında daima iyi şeyler dileyen ve belki de en önemlisi yorulduğunda yanında sessizce oturabileceğin biri olduğunu unutma.<br><br>
+
+Varlığın hiçbir zaman gösterişli olmadı ama bana hep güven verdin. Bu yüzden sana burada büyük sözler vermeyeceğim, "sonsuza kadar" demeyeceğim. Hayatın ne getireceğini bilemiyorum çünkü ama şunun sözünü verebilirim ki seni hayatımda tutmak için elimden geleni yapacağım.<br><br>
+
+Son olarak Eflin'im,<br><br>
+
+Umarım bir gün kendine benim baktığım yerden bakarsın çünkü ancak o zaman ne kadar kıymetli biri olduğunu görürsün.<br><br>
+
+Varlığına iyi ki.<br>
+
+Nice senelere 💕
+
+<div class="end">
+
+🤍
+
+</div>
+
+</div>
+
+<script>
+
+function playVideo(){
+
+document
+.querySelector(
+".open"
+)
+.style
+.display=
+"none";
+
+document
+.getElementById(
+"video"
+)
+.play();
+
+setTimeout(()=>{
+
+const card=
+
+document
+.getElementById(
+"letter"
+);
+
+card
+.classList
+.add(
+"fade"
+);
+
+card
+.style
+.display=
+"block";
+
+},3500);
+
+}
+
+</script>
+
 </body>
+
+</html><!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>İyi ki Doğdun 💕</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+
+background:black;
+
+overflow:hidden;
+
+font-family:
+Georgia,
+serif;
+
+}
+
+#video{
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+filter:
+brightness(.42);
+
+z-index:-5;
+
+}
+
+.overlay{
+
+position:fixed;
+
+inset:0;
+
+background:
+
+linear-gradient(
+rgba(0,0,0,.15),
+rgba(0,0,0,.55)
+);
+
+backdrop-filter:
+blur(1px);
+
+z-index:-4;
+
+}
+
+.open{
+
+position:absolute;
+
+top:50%;
+
+left:50%;
+
+transform:
+translate(-50%,-50%);
+
+padding:
+
+18px 36px;
+
+border:none;
+
+border-radius:999px;
+
+background:
+
+rgba(255,255,255,.12);
+
+backdrop-filter:
+blur(20px);
+
+color:white;
+
+font-size:18px;
+
+letter-spacing:1px;
+
+}
+
+.card{
+
+display:none;
+
+position:absolute;
+
+left:50%;
+
+top:50%;
+
+transform:
+translate(-50%,-50%);
+
+width:min(90vw,850px);
+
+height:82vh;
+
+overflow:auto;
+
+padding:38px;
+
+background:
+
+rgba(255,255,255,.08);
+
+backdrop-filter:
+blur(18px);
+
+border-radius:30px;
+
+color:white;
+
+line-height:2;
+
+box-shadow:
+
+0 0 80px
+rgba(255,255,255,.05);
+
+}
+
+.card::-webkit-scrollbar{
+
+display:none;
+
+}
+
+.title{
+
+text-align:center;
+
+font-size:40px;
+
+margin-bottom:30px;
+
+}
+
+.end{
+
+margin-top:40px;
+
+text-align:center;
+
+font-size:24px;
+
+}
+
+.fade{
+
+animation:
+fade 2s;
+
+}
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+
+transform:
+translate(
+-50%,
+-45%
+);
+
+}
+
+to{
+
+opacity:1;
+
+transform:
+translate(
+-50%,
+-50%
+);
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<video
+id="video"
+loop
+playsinline>
+
+<source
+src="video.mp4"
+type="video/mp4">
+
+</video>
+
+<div class="overlay"></div>
+
+<button
+class="open"
+onclick="playVideo()">
+
+▶ Aç
+
+</button>
+
+<div
+class="card"
+id="letter">
+
+<div class="title">
+
+İyi ki Doğdun Eflin 💕
+
+</div>
+
+Doğum günün geldiğinde sadece bir tarihi kutlamıyorum. İçimden geçen şey bir yılı daha geride bırakmanın çok daha ötesinde oluyor. Sen yaş aldıkça yalnızca büyümüyorsun; hayatımdaki, kalbimdeki yerin de büyüyor. Ne yazarsam yazayım, ne kadar cümle kurarsam kurayım eksik kalacakmış gibi hissediyorum :). <br><br>
+
+Bazı insanlar anılarıyla değil de bana hissettirdiği şeyler ile yer ediyor zihnimde ve bu benim için çok değerli, sen benim için hep böyle bir arkadaş oldun. Bazı insanlar olur ya, o kadar içselleştirmişsindir ki onu, varlığı senin için normalleşmiştir çünkü hep ordaymış gibi gelir. Bir an için durup düşündüğümde anlıyorum ki varlığın bana alışkanlıktan ziyade bir şans.<br><br>
+
+Belki her zaman aynı frekansta olamayacağız, belki hayat bizi farklı yönlere çekecek... Bilmeni isterim ki benim gözümde hiçbir zaman "uzaklaşan insanlar" tarafında olmayacaksın. Lise bana mesafelerle eksilmeyecek, hayatımın içinde çoktan yerini bulmuş bir arkadaşlık kazandırdı işte; en çok da bu yüzden minnettarım.<br><br>
+
+Bugün senin doğum günün ve sana uzun uzun güzel dilekler yazmak yerine söylemek istediğim tek bir şey var: Hayat sana ne getirirse getirsin, ne kadar büyürsen büyü benim sevgili arkadaşım; seni eski halinle de, bugünkü halinle de tanıyan, hakkında daima iyi şeyler dileyen ve belki de en önemlisi yorulduğunda yanında sessizce oturabileceğin biri olduğunu unutma.<br><br>
+
+Varlığın hiçbir zaman gösterişli olmadı ama bana hep güven verdin. Bu yüzden sana burada büyük sözler vermeyeceğim, "sonsuza kadar" demeyeceğim. Hayatın ne getireceğini bilemiyorum çünkü ama şunun sözünü verebilirim ki seni hayatımda tutmak için elimden geleni yapacağım.<br><br>
+
+Son olarak Eflin'im,<br><br>
+
+Umarım bir gün kendine benim baktığım yerden bakarsın çünkü ancak o zaman ne kadar kıymetli biri olduğunu görürsün.<br><br>
+
+Varlığına iyi ki.<br>
+
+Nice senelere 💕
+
+<div class="end">
+
+🤍
+
+</div>
+
+</div>
+
+<script>
+
+function playVideo(){
+
+document
+.querySelector(
+".open"
+)
+.style
+.display=
+"none";
+
+document
+.getElementById(
+"video"
+)
+.play();
+
+setTimeout(()=>{
+
+const card=
+
+document
+.getElementById(
+"letter"
+);
+
+card
+.classList
+.add(
+"fade"
+);
+
+card
+.style
+.display=
+"block";
+
+},3500);
+
+}
+
+</script>
+
+</body>
+
 </html>
